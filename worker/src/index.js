@@ -20,7 +20,18 @@ export default {
 
 		
 		if (path === "/") {
-			return new Response("Sahara API running on Cloudflare 🚀");
+			return new Response(
+				JSON.stringify({
+					status: "OK",
+					message: "Sahara API running on Cloudflare 🚀",
+					endpoints: [
+						"/api/user/login",
+						"/api/user/register",
+						"/api/doctor/list"
+					]
+				}),
+				{ headers }
+			);
 		}
 
 		
@@ -29,6 +40,12 @@ export default {
 			path === "/api/user/login" ||
 			path === "/api/user/get-profile"
 		) {
+			if (method === "GET") {
+				return new Response(
+					JSON.stringify({ message: "API working 🚀 Use POST for actual request" }),
+					{ headers }
+				);
+			}
 			const response = await fetch(BACKEND_URL + path, {
 				method,
 				headers: {
