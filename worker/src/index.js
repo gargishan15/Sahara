@@ -13,17 +13,17 @@ export default {
 			"Access-Control-Allow-Headers": "Content-Type, Authorization, token, atoken"
 		};
 
-		// CORS
+		
 		if (method === "OPTIONS") {
 			return new Response(null, { headers });
 		}
 
-		// Root
+		
 		if (path === "/") {
 			return new Response("Sahara API running on Cloudflare 🚀");
 		}
 
-		// ================= USER ROUTES =================
+		
 		if (
 			path === "/api/user/register" ||
 			path === "/api/user/login" ||
@@ -52,7 +52,7 @@ export default {
 			});
 		}
 
-		// ================= FORWARD USER ROUTES =================
+		
 
 		if (
 			path === "/api/user/update-profile" ||
@@ -103,9 +103,9 @@ export default {
 				}
 			});
 		}
-		// ================= DOCTOR ROUTES =================
+		
 
-		// 🔥 IMPORTANT → fetch REAL data from backend
+		
 		if (path === "/api/doctor/list") {
 			return fetch(BACKEND_URL + path, {
 				method,
@@ -121,7 +121,7 @@ export default {
 			});
 		}
 
-		// Forward ALL other doctor routes
+		
 		if (path.startsWith("/api/doctor")) {
 			return fetch(BACKEND_URL + path, {
 				method,
@@ -130,8 +130,7 @@ export default {
 			});
 		}
 
-		// ================= ADMIN ROUTES =================
-
+		
 		if (path === "/api/admin/login") {
 			return fetch(BACKEND_URL + path, {
 				method,
@@ -140,7 +139,7 @@ export default {
 			});
 		}
 
-		// Forward all admin routes
+		
 		if (path.startsWith("/api/admin")) {
 			return fetch(BACKEND_URL + path, {
 				method,
@@ -149,7 +148,7 @@ export default {
 			});
 		}
 
-		// 404
+		
 		return new Response("Not Found", { status: 404 });
 	}
 };
